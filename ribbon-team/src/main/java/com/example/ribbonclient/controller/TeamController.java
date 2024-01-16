@@ -1,6 +1,7 @@
 package com.example.ribbonclient.controller;
 
 import com.example.ribbonclient.model.TeamService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -26,6 +27,7 @@ public class TeamController {
 		teamList.add(new TeamService("2", "team 2", List.of("2"), List.of("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10", "player11")));
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForGetTeamById")
 	@ApiOperation(value = "Get Team", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved the list of Team"),
@@ -44,6 +46,7 @@ public class TeamController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForAddTeam")
 	@ApiOperation(value = "add team", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -59,6 +62,7 @@ public class TeamController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForUpdateTeam")
 	@ApiOperation(value = "update team", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -82,10 +86,12 @@ public class TeamController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForDeleteTeam")
 	@ApiOperation(value = "delete team", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 201, message = "team Deleted"),
+			@ApiResponse(code = 204, message = "Deleted ok"),
 			@ApiResponse(code = 401, message = "You are not authorized"),
 			@ApiResponse(code = 403, message = "Access forbidden")
 	})
@@ -102,6 +108,7 @@ public class TeamController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForGetAllTeams")
 	@ApiOperation(value = "Get all teams", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 401, message = "You are not authorized to view the matches"),
@@ -112,5 +119,21 @@ public class TeamController {
 	public ResponseEntity<List<TeamService>> getAllTteams() {
 		// Renvoie la liste complète des joueurs
 		return new ResponseEntity<>(teamList, HttpStatus.OK);
+	}
+
+	private String fallbackForGetTeamById(String id) {
+		return "Fallback response: Unable to get Team details for id = " + id;
+	}
+	private String fallbackForAddTeam(String id) {
+		return "Fallback response: Unable to add Team for id = " + id;
+	}
+	private String fallbackForUpdateTeam(String id, TeamService updatedTeam) {
+		return "Fallback response: Unable to update Team for id = " + id;
+	}
+	private String fallbackForDeleteTeam(String id) {
+		return "Fallback response: Unable to delete Team for id = " + id;
+	}
+	private String fallbackForGetAllTeams(String id) {
+		return "Fallback response: Unable to get all Teams";
 	}
 }

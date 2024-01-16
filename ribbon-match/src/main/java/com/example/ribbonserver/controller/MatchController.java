@@ -1,6 +1,7 @@
 package com.example.ribbonserver.controller;
 
 import com.example.ribbonserver.model.MatchService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,6 +26,7 @@ public class MatchController {
 		matchList.add(new MatchService("2", "Team C", "Team D", "Arbitre 2", "0", "3"));
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForGetMatchById")
 	@ApiOperation(value = "Get matche", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved the list of matche"),
@@ -41,7 +43,7 @@ public class MatchController {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-
+	//@HystrixCommand(fallbackMethod = "fallbackForAddMatch")
 	@ApiOperation(value = "add Match", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -56,6 +58,7 @@ public class MatchController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForUpdateMatch")
 	@ApiOperation(value = "update Match", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -79,6 +82,7 @@ public class MatchController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForDeleteMatch")
 	@ApiOperation(value = "delete Match", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -97,6 +101,7 @@ public class MatchController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForGetAllMatchs")
 	@ApiOperation(value = "Get all matches", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 401, message = "You are not authorized to view the matches"),
@@ -106,5 +111,21 @@ public class MatchController {
 	@GetMapping
 	public ResponseEntity<List<MatchService>> getAllMatches() {
 		return new ResponseEntity<>(matchList, HttpStatus.OK);
+	}
+
+	private String fallbackForGetMatchById(String id) {
+		return "Fallback response: Unable to get Match details for id = " + id;
+	}
+	private String fallbackForAddMatch(String id) {
+		return "Fallback response: Unable to add Match for id = " + id;
+	}
+	private String fallbackForUpdateMatch(String id, MatchService updatedMatch) {
+		return "Fallback response: Unable to update Match for id = " + id;
+	}
+	private String fallbackForDeleteMatch(String id) {
+		return "Fallback response: Unable to delete Match for id = " + id;
+	}
+	private String fallbackForGetAllMatchs(String id) {
+		return "Fallback response: Unable to get all Matchs";
 	}
 }

@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 		@RibbonClient(name = "server", configuration = RibbonConfiguration.class)
 })
 @EnableHystrix //graphalan
-@EnableHystrixDashboard // pour afficher un graph http://localhost:9098/hystrix
 @EnableCircuitBreaker
 public class RibbonClientApplication {
 

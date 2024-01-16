@@ -4,6 +4,7 @@ import com.example.ribbonclient.model.MatchService;
 import com.example.ribbonclient.model.PlayerService;
 import com.example.ribbonclient.model.TeamService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -36,23 +37,23 @@ public class StatsController {
 
 	public StatsController() {
 		teamList = new ArrayList<>();
-		teamList.add(new TeamService("1", "team1", List.of("1", "2"), List.of("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10", "player11")));
-		teamList.add(new TeamService("2", "team2", List.of("2"), List.of("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10", "player11")));
-		teamList.add(new TeamService("3", "team3", List.of("2"), List.of("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10", "player11")));
+		teamList.add(new TeamService("1", "team1",List.of("1", "2"), List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")));
+		teamList.add(new TeamService("2", "team2", List.of("2"), List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")));
+		teamList.add(new TeamService("3", "team3", List.of("2"), List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")));
 
 
 		playerList = new ArrayList<>();
-		playerList.add(new PlayerService("player1", "mohamed", "Team1", Arrays.asList("1", "2", "3", "4")));
-		playerList.add(new PlayerService("player2", "amine", "Team1", Arrays.asList("1")));
-		playerList.add(new PlayerService("player3", "mohamed", "Team1", Arrays.asList("1", "2")));
-		playerList.add(new PlayerService("player4", "amine", "Team3", Arrays.asList("1")));
-		playerList.add(new PlayerService("player5", "mohamed", "Team1", Arrays.asList("1", "2", "3", "4")));
-		playerList.add(new PlayerService("player6", "amine", "Team1", Arrays.asList("1")));
-		playerList.add(new PlayerService("player7", "mohamed", "Team1", Arrays.asList("1", "2")));
-		playerList.add(new PlayerService("player8", "amine", "Team1", Arrays.asList("1")));
-		playerList.add(new PlayerService("player9", "mohamed", "Team1", Arrays.asList("1", "2")));
-		playerList.add(new PlayerService("player10", "amine", "Team1", Arrays.asList("1")));
-		playerList.add(new PlayerService("player11", "mohamed", "Team1", Arrays.asList("1", "2")));
+		playerList.add(new PlayerService("1", "mohamed", "Team1", Arrays.asList("1", "2", "3", "4")));
+		playerList.add(new PlayerService("2", "amine", "Team1", Arrays.asList("1")));
+		playerList.add(new PlayerService("3", "mohamed", "Team1", Arrays.asList("1", "2")));
+		playerList.add(new PlayerService("4", "amine", "Team3", Arrays.asList("1")));
+		playerList.add(new PlayerService("5", "mohamed", "Team1", Arrays.asList("1", "2", "3", "4")));
+		playerList.add(new PlayerService("6", "amine", "Team1", Arrays.asList("1")));
+		playerList.add(new PlayerService("7", "mohamed", "Team1", Arrays.asList("1", "2")));
+		playerList.add(new PlayerService("8", "amine", "Team1", Arrays.asList("1")));
+		playerList.add(new PlayerService("9", "mohamed", "Team1", Arrays.asList("1", "2")));
+		playerList.add(new PlayerService("10", "amine", "Team1", Arrays.asList("1")));
+		playerList.add(new PlayerService("11", "mohamed", "Team1", Arrays.asList("1", "2")));
 
 		matchList = new ArrayList<>();
 		matchList.add(new MatchService("1", "Team A", "Team B", "Arbitre 1", "2", "1"));
@@ -61,13 +62,10 @@ public class StatsController {
 		matchList.add(new MatchService("4", "Team C", "Team D", "Arbitre 2", "0", "3"));
 	}
 
-
-
-
 	@Autowired
 	RestTemplate restTemplate;
 
-
+	//@HystrixCommand(fallbackMethod = "fallbackForGetTeamStatisticsById")
 	@ApiOperation(value = "Get Team Statistics", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 401, message = "You are not authorized to view the Statistics of Team"),
@@ -80,6 +78,7 @@ public class StatsController {
 	}
 
 
+	//@HystrixCommand(fallbackMethod = "fallbackForGetPlayerStatisticsById")
 	@ApiOperation(value = "Get Player Statistics", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 401, message = "You are not authorized to view the Statistics of Player"),
@@ -91,12 +90,17 @@ public class StatsController {
         return  getPlayerStatistics(playerId);
 	}
 
-
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
 
+	private String fallbackForGetTeamStatisticsById(String teamId) {
+		return "Fallback response: Unable to get Statistic for team id = " + teamId;
+	}
+	private String fallbackForGetPlayerStatisticsById(String playerId) {
+		return "Fallback response: Unable to get Statistic for player id = " + playerId;
+	}
 
 	public String getTeamStatistics(String teamId) {
 		StringBuilder statistics = new StringBuilder();
@@ -156,10 +160,6 @@ public class StatsController {
 		}
 		return count;
 	}
-
-
-
-
 
 	public String getPlayerStatistics(String playerId) {
 		StringBuilder statistics = new StringBuilder();

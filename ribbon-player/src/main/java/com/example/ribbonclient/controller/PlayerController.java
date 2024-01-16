@@ -29,7 +29,6 @@ public class PlayerController {
 		playerList.add(new PlayerService("2", "amine", "Team B", Arrays.asList("1")));
 	}
 
-	@HystrixCommand(fallbackMethod = "fallbackForGetStudentDetails")
 	@ApiOperation(value = "Get Player", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved the list of Player"),
@@ -38,6 +37,7 @@ public class PlayerController {
 			@ApiResponse(code = 404, message = "The Players were not found")
 	})
 	@GetMapping("/{id}")
+	//@HystrixCommand(fallbackMethod = "fallbackForGetPlayerById")
 	public ResponseEntity<PlayerService> getPlayerById(@PathVariable String id) {
 		for (PlayerService player : playerList) {
 			if (player.getId().equals(id)) {
@@ -47,6 +47,7 @@ public class PlayerController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForAddPlayer")
 	@ApiOperation(value = "add player", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -61,6 +62,7 @@ public class PlayerController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForUpdatePlayer")
 	@ApiOperation(value = "update Player", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -82,6 +84,7 @@ public class PlayerController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForDeletePlayer")
 	@ApiOperation(value = "delete Player", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
@@ -100,6 +103,7 @@ public class PlayerController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	//@HystrixCommand(fallbackMethod = "fallbackForGetAllPlayers")
 	@ApiOperation(value = "Get all Players", response = List.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 401, message = "You are not authorized to view the Players"),
@@ -111,7 +115,19 @@ public class PlayerController {
 		return new ResponseEntity<>(playerList, HttpStatus.OK);
 	}
 
-	private String fallbackForGetStudentDetails(String schoolName, String studentName) {
-		return "Fallback response: Unable to get student details for schoolName=" + schoolName + " and studentName=" + studentName;
+	private String fallbackForGetPlayerById(String id) {
+		return "Fallback response: Unable to get player details for id = " + id;
+	}
+	private String fallbackForAddPlayer(String id) {
+		return "Fallback response: Unable to add player for id = " + id;
+	}
+	private String fallbackForUpdatePlayer(String id, PlayerService updatedPlayer) {
+		return "Fallback response: Unable to update player for id = " + id;
+	}
+	private String fallbackForDeletePlayer(String id) {
+		return "Fallback response: Unable to delete player for id = " + id;
+	}
+	private String fallbackForGetAllPlayers(String id) {
+		return "Fallback response: Unable to get all players";
 	}
 }

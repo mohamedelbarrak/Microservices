@@ -25,8 +25,26 @@ Bienvenue dans le projet de gestion d'équipes de football, développé avec Spr
   ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/8f8bf26d-bf1d-471d-8b79-892e405215a3)
 
 ## Microservice PlayerService
-  - Le model MatchService : String id, String name, String team, List<String> match_played.
+  - Le model PlayerService : String id, String name, String team, List<String> match_played.
   ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/04f55119-5b46-4fa6-a341-b1508c9ba993)
   - Points de Terminaison :
   ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/cdc7933f-9090-4da8-83e0-1acdcaf02fdf)
+
+## Microservice TeamService
+  - Le model TeamService : String id, String name, List<String> matchsplayed, List<String> players.
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/97cfb640-0759-45f9-871d-9e2afb4c7f0d)
+
+  - Points de Terminaison :
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/47054f5e-e032-4af8-8388-a4b0726ceda3)
+
+## Microservice Statistics
+  - La fonction getTeamStatistics pour avoir des statistiques sur le team nombre de matchs jouer et par rapport à chaque joueur ...
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/34c61509-e39f-4a40-8228-4f3e6f4b5c4b)
+
+  - La fonction getPlayerStatistics pour avoir des statistiques sur un joueur nombre de matchs jouer et nombre de matchs gagnés.
+    ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/20f67000-1ddc-4ebf-8fdb-c8862f1e9088)
+
+## Hystrix
+![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/cde718ab-e03b-429d-bbeb-cbc0d3598a59)
+
 

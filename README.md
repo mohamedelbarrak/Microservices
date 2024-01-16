@@ -20,7 +20,7 @@ Bienvenue dans le projet de gestion d'équipes de football, développé avec Spr
 
 ## Microservice MatchService
   - Le model MatchService : String id, String team_one, String team_two, String arbitre, String team_one_buts, String team_two_buts.
-  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/e996f9c4-fd4f-4ce9-a4ca-2452517a6569)
+ ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/f85a2218-c2d2-41ca-9a47-0d04cc4ae8ea)
   - Points de Terminaison :
   ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/8f8bf26d-bf1d-471d-8b79-892e405215a3)
 
@@ -43,6 +43,9 @@ Bienvenue dans le projet de gestion d'équipes de football, développé avec Spr
 
   - La fonction getPlayerStatistics pour avoir des statistiques sur un joueur nombre de matchs jouer et nombre de matchs gagnés.
     ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/20f67000-1ddc-4ebf-8fdb-c8862f1e9088)
+  - Points de Terminaison :
+    ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/1d6eccf5-a7bf-44b6-905a-9ae27f090ea3)
+
 
 ## Hystrix
 ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/cde718ab-e03b-429d-bbeb-cbc0d3598a59)

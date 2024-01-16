@@ -20,9 +20,9 @@ Bienvenue dans le projet de gestion d'équipes de football, développé avec Spr
 
 ## Microservice MatchService
   - Le model MatchService : String id, String team_one, String team_two, String arbitre, String team_one_buts, String team_two_buts.
- ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/f85a2218-c2d2-41ca-9a47-0d04cc4ae8ea)
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/b3ef1983-2ad7-4dd6-abff-3363fb08e5c9)
   - Points de Terminaison :
-  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/8f8bf26d-bf1d-471d-8b79-892e405215a3)
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/f85a2218-c2d2-41ca-9a47-0d04cc4ae8ea)
 
 ## Microservice PlayerService
   - Le model PlayerService : String id, String name, String team, List<String> match_played.

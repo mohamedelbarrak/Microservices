@@ -10,7 +10,11 @@ Bienvenue dans le projet de gestion d'équipes de football, développé avec Spr
   ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/a3ea751f-c92f-4fb8-8cb2-c94ac466fdd9)
 
 - PLAYERSERVICE
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/85b055c9-8c4d-44cc-9b53-1b2597acea0f)
 
 - STATISTICSERVICE
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/4dddf0c0-6c2c-40ea-8faf-999a9cc212b0)
 
 - TEAMSERVICE
+  ![image](https://github.com/mohamedelbarrak/Microservices/assets/66890099/31c52898-738e-4c05-aa3b-79e0bec59d5d)
+
